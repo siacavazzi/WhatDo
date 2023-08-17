@@ -1,5 +1,6 @@
 import {useState, useEffect } from 'react';
-import Loader, { TailSpin } from "react-loader-spinner";
+
+import CircularProgress from '@mui/material/CircularProgress';
 import { styled } from '@mui/material/styles';
 
 const loadingMessages = [
@@ -87,7 +88,7 @@ export default function LoadingScreen({ loadingState }) {
         <OuterContainer>
         <CenteredContainer>
         <h1>{loadingState}</h1>
-        <TailSpin/>
+        <CircularProgress size={200} color="primary" thickness={3}/>
         </CenteredContainer>
         </OuterContainer>
     );

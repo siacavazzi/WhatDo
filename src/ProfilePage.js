@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Button, ButtonGroup, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
@@ -16,7 +16,10 @@ export function ProfilePage() {
     const navigate = useNavigate();
     
 
-
+    useEffect(()=> setRender(),[profile])
+    function setRender() {
+        firstRender = true;
+    }
     if(profile === "") {
         firstRender = true;
         return(<h1>Select Profile To Edit</h1>)

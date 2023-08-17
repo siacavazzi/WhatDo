@@ -7,6 +7,8 @@ import reportWebVitals from './reportWebVitals';
 import { ProfilePage } from './ProfilePage';
 import CreateProfile from "./CreateProfile"
 import { getProfileLoader } from './loaders';
+import AboutPage from "./AboutPage";
+import SavedLocations from './SavedLocationsPage';
 
 import {
   createBrowserRouter,
@@ -14,6 +16,7 @@ import {
   Route,
   Link,
 } from "react-router-dom";
+
 
 
 const router = createBrowserRouter([
@@ -33,6 +36,14 @@ const router = createBrowserRouter([
       {
         path: "new-profile",
         element: <CreateProfile/>
+      },
+      {
+        path: "about",
+        element: <AboutPage/>
+      },
+      {
+        path:"saved-locs",
+        element:<SavedLocations/>
       }
     ]
   },

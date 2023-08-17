@@ -26,11 +26,12 @@ function Header() {
       };
 
     return (
-        <Grid container spacing={3} borderBottom="1px solid grey">
+        <Grid container spacing={3} borderBottom="1px solid grey" background="#219ebc">
             {/* Left Component */}
             <Grid item xs={6}>
 
-                <Typography onClick={() => navigate('/')} variant="h2">WhatDo</Typography>
+                <Typography onClick={() => navigate('/')} variant="h2">WhatDo 🤔</Typography>
+                <Typography variant='h4'>For Indecisive People Everywhere</Typography>
 
             </Grid>
 
@@ -39,6 +40,8 @@ function Header() {
                 <div>
                     <Button onClick={ () => navigate(`/new-profile`) }>Create New Profile</Button>
                     <Button onClick={ () => navigate(`/profile`) }>Edit Profile</Button>
+                    <Button onClick={ () => navigate(`/saved-locs`) }>My Saved Locations</Button>
+                    <Button onClick={ () => navigate(`/about`) }>About</Button>
                     <FormControl variant="outlined" fullWidth>
                         <InputLabel id="demo-simple-select-label">Choose Profile</InputLabel>
                         <Select

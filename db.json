@@ -3,11 +3,18 @@
     {
       "profile": {
         "name": "Sam",
-        "dietary_restrictions": "none but I don't really like seafood",
-        "food_preferences": "middle eastern, asian, pizza, bagels, experimental food",
+        "dietary_restrictions": "none",
+        "food_preferences": "middle eastern, asian, pizza, bagels, unique food",
         "drink_preferences": "craft beer, experimental cocktails",
-        "general_preferences": "aerospace, museums, hiking, abandoned places, photography, games, unique activities"
+        "general_preferences": "museums, hiking, abandoned places, photography, aviation, games, unique activities, astronomy"
       },
+      "saved_locs": [
+        "ChIJUemZBRRawokRXSg4Yn-fyvE",
+        "ChIJEWHdJhRawokRoMR-DurUSl4",
+        "ChIJIRiJaRRawokR2KyQ984qa-o",
+        "ChIJ_8dmJ0lbwokRIJHQFfXiMNo",
+        "ChIJ2zW7aDlbwokRy--jgJ8aXoc"
+      ],
       "id": 1
     },
     {
@@ -16,9 +23,21 @@
         "dietary_restrictions": "Gluten-free and pescatarian",
         "food_preferences": "Prefers seafood dishes like shrimp scampi, grilled salmon, and crab cakes. Loves fresh fruits, especially berries, and vegetables like bell peppers and spinach. Enjoys salads with vinaigrette dressing.",
         "drink_preferences": "Green tea, sparkling water, and pomegranate juice. Occasionally enjoys white wine with seafood dishes.",
-        "general_preferences": "Enjoys yoga, swimming, and stand-up paddleboarding. Often takes nature hikes and enjoys weekend getaways to coastal towns."
+        "general_preferences": "Avid fan of baseball, enjoys playing the guitar, and loves attending live music concerts."
       },
+      "saved_locs": [],
       "id": 2
+    },
+    {
+      "profile": {
+        "name": "Jake (fake profile)",
+        "dietary_restrictions": "Lactose-intolerant",
+        "food_preferences": "Prefers plant-based meals with tofu, tempeh, and seitan. Enjoys a variety of international cuisines, particularly Thai and Indian. Fond of spicy dishes, roasted vegetables, and grain bowls.",
+        "drink_preferences": "Almond milk lattes, herbal teas, and coconut water. Enjoys craft beers with spicy food.",
+        "general_preferences": "Enjoys rock climbing, mountain biking, and playing ultimate frisbee. Likes attending food festivals and trying new vegan eateries."
+      },
+      "saved_locs": [],
+      "id": 3
     }
   ]
 }

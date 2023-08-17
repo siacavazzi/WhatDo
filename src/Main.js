@@ -43,9 +43,6 @@ function Main() {
         fxs.getLocation(setLon, setLat, setAppState);
     }
 
-    
-    
-    
     function addMarker(marker) {
         console.log("placegolde")
     }
@@ -77,6 +74,7 @@ function Main() {
             console.log(place.result.geometry.location)
             locPins.push({ name: place.result.name, id: 1, lat: place.result.geometry.location.lat, lon: place.result.geometry.location.lng })
             outputLocations.push(place)
+            console.log(place)
             } catch(e) {
                 console.log(e)
             }

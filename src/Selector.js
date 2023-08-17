@@ -12,19 +12,23 @@ const StyledButtonGroup = styled(ButtonGroup)`
 `;
 
 const RestaurantButton = styled(Button)`
-  color: #f00; // Your desired color for the Restaurants button
+  color: #000000; // Your desired color for the Restaurants button
+  background: #2A9D8F
 `;
 
 const BarsButton = styled(Button)`
-  color: #0f0; // Your desired color for the Bars button
+color: #000000;
+  background: #E9C46A; // Your desired color for the Bars button
 `;
 
 const ActivitiesButton = styled(Button)`
-  color: #00f; // Your desired color for the Activities button
+color: #000000;
+  background: #F4A261; // Your desired color for the Activities button
 `;
 
 const CustomButton = styled(Button)`
-  color: #00f; // Your desired color for the Activities button
+color: #000000;
+  background: #E76F51; // Your desired color for the Activities button
 `;
 
 const SettingsBox = styled(Box)({
@@ -33,21 +37,41 @@ const SettingsBox = styled(Box)({
   });
 
 export default function Selector({ makeSelection , radius , setRadius,  numResults , setNumResults}) {
+    const [displayCustom, setDisplayCustom] = useState(false);
+    const [formInput, setFormInput] = useState("")
     //const [radius, setRadius] = useState();
     //const [numResults, setNumResults] = useState()
+    if(!displayCustom) {
     return (
         <Box display="flex" justifyContent="flex-start" flexDirection="row" alignItems="center" gap={2} p={2}>
         
         <Box flexGrow={1} display="flex" justifyContent="center">
           <StyledButtonGroup size="large" aria-label="large button group">
-            <RestaurantButton onClick={() => makeSelection("restaurants")} color="secondary">Restaurants</RestaurantButton>
-            <BarsButton onClick={() => makeSelection("bars")}>Bars</BarsButton>
-            <ActivitiesButton onClick={() => makeSelection("activities")}>Activities</ActivitiesButton>
-            <CustomButton>Custom</CustomButton>
+            <RestaurantButton onClick={() => makeSelection("restaurants")} color="secondary">Restaurants 🍔</RestaurantButton>
+            <BarsButton onClick={() => makeSelection("bars")}>Bars 🍻</BarsButton>
+            <ActivitiesButton onClick={() => makeSelection("activities")}>Activities 🎲</ActivitiesButton>
+            <CustomButton onClick={() => setDisplayCustom(true)}>Custom 😵‍💫</CustomButton>
           </StyledButtonGroup>
         </Box>
         </Box>
     );
+    } else {
+        return (
+            <div>
+                <TextField fullWidth size="large" value={formInput} onChange={(e) => setFormInput(e.target.value)}
+          id="standard-multiline-flexible"
+          label="Custom Search"
+          multiline
+          rows={1}
+          variant="filled"
+        />
+        <Button onClick={() => makeSelection(formInput)}>Search</Button>
+        <Button onClick={() => setDisplayCustom(false)}>Back To Main Menu</Button>
+            </div>
+        )
+            
+        
+    }
 }
 
 

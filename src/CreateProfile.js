@@ -36,7 +36,7 @@ export default function CreateProfile() {
               "Accept":"application/json",
               "Content-Type":"application/json"
             },
-            body: JSON.stringify({profile})
+            body: JSON.stringify({profile , "saved_locs":[]})
         }
         fetch("http://localhost:3000/users", OPTIONS)
         .then(resp => resp.json())

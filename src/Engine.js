@@ -1,15 +1,11 @@
-import ChatBar from "./chatBar.js";
-import { useState, useEffect } from 'react';
-import MessageContainer from './messageContainer.js'
+
 import GPTResponse from "./GPTContainer.js"
 import './App.css';
-import { Box } from '@mui/material';
-import Header from "./header.js"
 import * as fxs from "./GPTFunctions";
 
 //const preferences = ["scenic spots", "nature reserves", "abandoned places", "aerospace", "aviation", "astronomy"]
 //const food_preferences = "Mexican, Donuts, Brewery, Steakhouse, Pizza, Japanese, Thai, Moroccan, Indian, Bagel Shop, Fondue, Mexican Grill, Turkish, and Korean BBQ."
-let numSearches = 3;
+let numSearches;
 //const searchItem = "restaurants"
 
 
@@ -17,7 +13,7 @@ let numSearches = 3;
 
 async function runEngine(setLoadingState, selection, lat, lon, radius, numResults, food_preferences, drink_preferences, dietaryRestrictions, preferences) {
   numSearches = numResults;
-  setLoadingState("Getting Weather and Time Recommendation...")
+  setLoadingState("Step 1/5: Getting Weather and Time Recommendation... ⛈️")
   console.log(selection)
 
   const weather = await fxs.getWeather(lat, lon);
@@ -25,19 +21,19 @@ async function runEngine(setLoadingState, selection, lat, lon, radius, numResult
   const currentTime = fxs.GetCurrentTime();
 
   const weatherRecommendation = await identifyWeather(weather, currentTime)
-  setLoadingState("Generating Search Strings...")
+  setLoadingState("Step 2/5: Generating Search Strings... 💬")
   const searchStrings = await getSearchStrings(weatherRecommendation, selection);
   console.log(searchStrings);
-  setLoadingState("Searching For Places...")
+  setLoadingState("Step 3/5: Searching For Places... 🔎")
   const placesInfo = await getPlaceDetails(searchStrings, lat, lon, radius);
   const resolvedPlaces = await Promise.all(placesInfo);
   console.log(resolvedPlaces)
-  setLoadingState("Reading Reviews and Place Details...")
+  setLoadingState("Step 4/5: Reading Reviews and Place Details... 🤖📖")
   const summaryDetailsPromises = await summarizeDetails(resolvedPlaces, 5)
   const summaryDetails = await Promise.all(summaryDetailsPromises)
 
   console.log(summaryDetails)
-  setLoadingState("Making Final Recomendations...")
+  setLoadingState("Step 5/5: Making Final Recomendations... 🤔")
   const finalDecision = await recommendLocations(summaryDetails, weather, selection, currentTime);
   console.log(finalDecision)
   return finalDecision;
@@ -53,17 +49,20 @@ async function runEngine(setLoadingState, selection, lat, lon, radius, numResult
     }
     let conditionalStatement;
     let searchType;
-    switch(selection) {
+    switch (selection) {
       case "restaurants":
         conditionalStatement = `dietary preferences: ${food_preferences}. The user also has the following dietary restrictions: ${dietaryRestrictions}. Make sure to recommend restaruants compatible with these restrictions`
         searchType = "restaurants"
         break;
       case "bars":
-        conditionalStatement =`drink preferences: ${drink_preferences}`
+        conditionalStatement = `drink preferences: ${drink_preferences}. Do not overly rely on these preferences in your decision.`
         searchType = "bars"
       case "activites":
-        conditionalStatement = `activity preferences: ${preferences}`
+        conditionalStatement = `activity preferences: ${preferences}. Do not overly rely on these preferences in your decision.`
         searchType = "activities"
+      default:
+        conditionalStatement = `activity preferences: ${preferences} \n drink preferences: ${drink_preferences} \n dietary preferences: ${food_preferences}.`
+        searchType = selection;
 
     }
 
@@ -87,7 +86,7 @@ async function runEngine(setLoadingState, selection, lat, lon, radius, numResult
     for (let search of placeSearches) {
       let loopStop = 0
       if (search.length > limit) {
-       search =  search.slice(0,limit)
+        search = search.slice(0, limit)
       }
 
       let locationsFromSearch = ""
@@ -139,9 +138,9 @@ async function runEngine(setLoadingState, selection, lat, lon, radius, numResult
       return 'Breakfast';
     } else if (hour >= 11 && hour < 15) {
       return 'Lunch';
-    } else if (hour >= 15 && hour < 18) {
+    } else if (hour >= 15 && hour < 17) {
       return 'Snack';
-    } else if (hour >= 18 && hour < 22) {
+    } else if (hour >= 17 && hour < 22) {
       return 'Dinner';
     } else {
       return 'Late Night Snack';
@@ -169,7 +168,7 @@ async function runEngine(setLoadingState, selection, lat, lon, radius, numResult
       let userContext = ""
       switch (selection) {
         case "restaurants":
-          conditionalDirective = `Create a comma separated list of ${numSearches} search strings for places to get ${getMeal()} .Do not search for takeout or delivery. Do not overly rely on user likes. Do not include location. Only return a comma seperated list and no other text. Please remember to keep the list comma seperated.`
+          conditionalDirective = `Create a comma separated list of ${numSearches} search strings for places to get ${getMeal()}. Do not search for takeout or delivery. Do not overly rely on user likes. Do not include location. Only return a comma seperated list of places to get ${getMeal()} and no other text. Please remember to keep the list comma seperated.`
           userContext = `Food preferences: ${food_preferences}`;
           break;
         case "bars":
@@ -180,6 +179,9 @@ async function runEngine(setLoadingState, selection, lat, lon, radius, numResult
           conditionalDirective = `Create a comma separated list of ${numSearches} search strings for fun activities. Do not suggest bars, cafes or restaurants. Do not overly rely on the user preferences, they would prefer you suggest them new things. Only return a comma seperated list and no other text. Please remember to keep the list comma seperated.`
           userContext = `Activity preferences: ${preferences}`
           break;
+        default:
+          conditionalDirective = `Create a comma separated list of ${numSearches} search strings for ${selection}.`
+          userContext = `Activity preferences: ${preferences} \n Food preferences: ${food_preferences} \n Drink preferences: ${drink_preferences}`
 
       }
 
