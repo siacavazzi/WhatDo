@@ -51,7 +51,7 @@ async function runEngine(setLoadingState, selection, lat, lon, radius, numResult
     let searchType;
     switch (selection) {
       case "restaurants":
-        conditionalStatement = `dietary preferences: ${food_preferences}. The user also has the following dietary restrictions: ${dietaryRestrictions}. Make sure to recommend restaruants compatible with these restrictions`
+        conditionalStatement = `dietary preferences: ${food_preferences}. The user also has the following dietary restrictions: ${dietaryRestrictions}. Make sure to recommend restaruants compatible with these restrictions and avoid recommending chain restaurants.`
         searchType = "restaurants"
         break;
       case "bars":
