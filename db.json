@@ -3,17 +3,18 @@
     {
       "profile": {
         "name": "Sam",
-        "dietary_restrictions": "none",
-        "food_preferences": "middle eastern, asian, pizza, bagels, unique food",
-        "drink_preferences": "craft beer, experimental cocktails",
-        "general_preferences": "museums, hiking, abandoned places, photography, aviation, games, unique activities, astronomy"
+        "dietary_restrictions": "none, but i don't like seafood",
+        "food_preferences": "middle eastern, asian, pizza, bagels, unique food, rooftop restaurants when the weather is good.",
+        "drink_preferences": "craft beer, experimental cocktails, rooftop bars, speakeasies",
+        "general_preferences": "museums, hiking, abandoned places, cool photography locations, aerospace museums, games, unique activities, astronomy, interesting parks"
       },
       "saved_locs": [
         "ChIJUemZBRRawokRXSg4Yn-fyvE",
         "ChIJEWHdJhRawokRoMR-DurUSl4",
         "ChIJIRiJaRRawokR2KyQ984qa-o",
         "ChIJ_8dmJ0lbwokRIJHQFfXiMNo",
-        "ChIJ2zW7aDlbwokRy--jgJ8aXoc"
+        "ChIJ2zW7aDlbwokRy--jgJ8aXoc",
+        "ChIJeSPdKCtbwokR7x28WMG2UN0"
       ],
       "id": 1
     },
@@ -36,7 +37,9 @@
         "drink_preferences": "Almond milk lattes, herbal teas, and coconut water. Enjoys craft beers with spicy food.",
         "general_preferences": "Enjoys rock climbing, mountain biking, and playing ultimate frisbee. Likes attending food festivals and trying new vegan eateries."
       },
-      "saved_locs": [],
+      "saved_locs": [
+        "ChIJWVSkhxdawokRNY0XSfQZN3M"
+      ],
       "id": 3
     }
   ]

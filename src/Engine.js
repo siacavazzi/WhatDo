@@ -83,11 +83,17 @@ async function runEngine(setLoadingState, selection, lat, lon, radius, numResult
   async function summarizeDetails(placeSearches, limit) {
     let GPTsummaries = [];
     let j = 0;
+    
     for (let search of placeSearches) {
       let loopStop = 0
+      try {
       if (search.length > limit) {
         search = search.slice(0, limit)
       }
+    } catch (e) {
+      console.log("no results returned")
+      search = ["no locations were found"];
+    }
 
       let locationsFromSearch = ""
       // create GPT response promises
