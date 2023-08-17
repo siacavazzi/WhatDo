@@ -2,10 +2,8 @@ import { OutputOutlined } from "@mui/icons-material";
 import keys from "./apiKey"
 
 /// get user data - for now we will just have variables
-const lat = 40.741895;
-const lon = -73.989308;
 const proxyUrl = "http://0.0.0.0:8080/"
-const radius = 1000 // search radius in M
+
 
 
 export const GetCurrentTime = () => {
@@ -15,6 +13,27 @@ export const GetCurrentTime = () => {
     const minutes = String(date.getMinutes()).padStart(2, '0');  // get minutes and ensure it's two digits
     return (hours+":"+minutes)
   }
+
+export function getLocation(setLon, setLat , setAppState) {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success, error);
+      } else {
+        console.log("Geolocation not supported");
+      }
+      
+      function success(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        console.log(`Latitude: ${latitude}, Longitude: ${longitude}`);
+        setLon(longitude);
+        setLat(latitude);
+        setAppState("default")
+      }
+      
+      function error() {
+        console.log("Unable to retrieve your location");
+      }
+}
 
 
 export function doMath(a,b,operator) {
@@ -42,7 +61,7 @@ export function randomSplice(arr, length) {
     return newArr;
 }
 //////////////////////////// GOOGLE QUERY CODE ///////////////////////////////////
-export async function queryLocations(query) {
+export async function queryLocations(query, lat , lon, radius) {
     const OPTIONS = {
         method: "GET",
         headers: {
@@ -52,7 +71,7 @@ export async function queryLocations(query) {
     }
     
     
-    const req = proxyUrl+`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&location=${lat} ${lon}&radius=${radius}&openNow&reviews&key=${keys["google"]}`;
+    const req = proxyUrl+`https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&location=${lat} ${lon}&rankby=distance&openNow&reviews&key=${keys["google"]}`;
     
     try {
         let response = await fetch(req, OPTIONS);
@@ -186,7 +205,7 @@ export async function getPlaces(places , finalResult=false) {
 //////////////////////////// GOOGLE QUERY CODE ///////////////////////////////////
 
 
-export async function getWeather() {
+export async function getWeather(lat, lon) {
     try {
         let response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${keys["weather"]}`)
         let data = await response.json();

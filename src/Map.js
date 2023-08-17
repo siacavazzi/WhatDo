@@ -1,13 +1,13 @@
 import React from "react";
 import GoogleMapReact from 'google-map-react';
 import keys from "./apiKey"
-import { useState } from "react";
+
 //import MapMarker from "./MapMarker"
 
 
 
-export default function SimpleMap({ lat , lon , pins , height}){
-  const [places, setPlaces] = useState([])
+export default function SimpleMap({ lat , lon , pins , radius ,height}){
+
   const defaultProps = {
     center: {
       lat: lat,
@@ -16,8 +16,6 @@ export default function SimpleMap({ lat , lon , pins , height}){
     zoom: 13
   };
 
-  
-
   const myLatLng = { lat: lat, lng: lon };
 
   const handleApiLoaded = (map, maps) => {
@@ -25,21 +23,26 @@ export default function SimpleMap({ lat , lon , pins , height}){
         /// pin.id pin.lat pin.lon pin.name
         let marker = new maps.Marker({position:{lat: pin.lat, lng: pin.lon}, map,label:pin.name})
       }
-
-    // new maps.Marker({
-    //     position: myLatLng,
-    //     map,
-    //     title: "Hello World!",
-    //   });
-    // use map and maps objects
+      
+    new maps.Marker({
+        position: myLatLng,
+        map,
+        title: "Hello World!",
+        icon: {
+        url: "https://png.pngtree.com/png-vector/20230201/ourmid/pngtree-map-pin-icon-with-you-are-here-png-image_6582049.png",
+        scaledSize: new maps.Size(100, 100),
+    }
+      });
   };
 
-  return (
+ 
     // Important! Always set the container height explicitly
+    return (
     <div style={{ height: height, width: '100%' }}>
+        
       <GoogleMapReact
         bootstrapURLKeys={{ key: keys["google"] }}
-        defaultCenter={defaultProps.center}
+        center={defaultProps.center}
         defaultZoom={defaultProps.zoom}
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
@@ -48,4 +51,6 @@ export default function SimpleMap({ lat , lon , pins , height}){
       </GoogleMapReact>
     </div>
   );
+    
+
 }

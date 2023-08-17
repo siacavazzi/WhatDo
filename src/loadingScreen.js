@@ -57,19 +57,17 @@ const loadingMessages = [
 
 
 
-export default function LoadingScreen() {
+export default function LoadingScreen({ loadingState }) {
     const [loadingMessage, setLoadingMessage] = useState("Loading...");
 
-    function changeLoadingMessage() {
-        const newMsg = loadingMessages[Math.floor(Math.random() * loadingMessages.length)]
-        setLoadingMessage(newMsg)
-    }
+   
+
 
     const OuterContainer = styled('div')`
     display: flex;
     justify-content: center;
     padding: 20px;
-    height: 100vh;
+    height: height;
 `;
 
     const CenteredContainer = styled('div')`
@@ -84,18 +82,11 @@ export default function LoadingScreen() {
     padding: 20px;
 `;
 
-    useEffect(() => {
-        const interval = setInterval(changeLoadingMessage, 2000);
-
-        return () => {
-            clearInterval(interval);
-        };
-    }, []); 
 
     return (
         <OuterContainer>
         <CenteredContainer>
-        <h1>{loadingMessage}</h1>
+        <h1>{loadingState}</h1>
         <TailSpin/>
         </CenteredContainer>
         </OuterContainer>

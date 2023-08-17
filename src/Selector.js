@@ -1,6 +1,8 @@
 import React from 'react';
-import { Button, ButtonGroup } from '@mui/material';
+import { useState } from 'react';
+import { Button, ButtonGroup, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
 
 const StyledButtonGroup = styled(ButtonGroup)`
   & .MuiButton-root {
@@ -21,21 +23,31 @@ const ActivitiesButton = styled(Button)`
   color: #00f; // Your desired color for the Activities button
 `;
 
-const CenteredContainer = styled('div')`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 20vh; // This takes the full height of the viewport
+const CustomButton = styled(Button)`
+  color: #00f; // Your desired color for the Activities button
 `;
 
-export default function Selector({ makeSelection }) {
+const SettingsBox = styled(Box)({
+    backgroundColor: '#f0f0f0', // Light gray background
+    padding: '16px',
+  });
+
+export default function Selector({ makeSelection , radius , setRadius,  numResults , setNumResults}) {
+    //const [radius, setRadius] = useState();
+    //const [numResults, setNumResults] = useState()
     return (
-        <CenteredContainer>
-        <StyledButtonGroup size="large" aria-label="large button group">
+        <Box display="flex" justifyContent="flex-start" flexDirection="row" alignItems="center" gap={2} p={2}>
+        
+        <Box flexGrow={1} display="flex" justifyContent="center">
+          <StyledButtonGroup size="large" aria-label="large button group">
             <RestaurantButton onClick={() => makeSelection("restaurants")} color="secondary">Restaurants</RestaurantButton>
-            <BarsButton onClick={() => makeSelection("bar")}>Bars</BarsButton>
+            <BarsButton onClick={() => makeSelection("bars")}>Bars</BarsButton>
             <ActivitiesButton onClick={() => makeSelection("activities")}>Activities</ActivitiesButton>
-        </StyledButtonGroup>
-        </CenteredContainer>
+            <CustomButton>Custom</CustomButton>
+          </StyledButtonGroup>
+        </Box>
+        </Box>
     );
 }
+
+

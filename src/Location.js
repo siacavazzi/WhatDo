@@ -14,67 +14,68 @@ const proxyUrl = "http://0.0.0.0:8080/"
 const LocationCard = ({ location }) => {
     const [photo, setPhoto] = useState("")
 
-    async function getPhoto() {
-        const photoRef = location.result.photos[0].photo_reference
-        const url = proxyUrl+`https://maps.googleapis.com/maps/api/place/photo?maxwidth=${1000}&photoreference=${photoRef}&key=${keys["google"]}`
-        const response = await fetch(url)
-        return response.blob();
 
-    }
     async function setPhotoRef() {
+        try{
+        async function getPhoto() {
+            const photoRef = location.result.photos[0].photo_reference
+            const url = proxyUrl + `https://maps.googleapis.com/maps/api/place/photo?maxwidth=${1000}&photoreference=${photoRef}&key=${keys["google"]}`
+            const response = await fetch(url)
+            return response.blob();
+
+        }
         const img = await getPhoto();
         console.log(URL.createObjectURL(img))
         setPhoto(URL.createObjectURL(img))
+    } catch(e) {
+        console.log(e);
+        setPhoto("https://liftlearning.com/wp-content/uploads/2020/09/default-image.png")
+    }
     }
 
-useEffect(() => setPhotoRef(),[])
-let description = location.result.name
-if(location.result.editorial_summary) {
-    description = location.result.editorial_summary.overview;
-}
-console.log("PLACE ID:")
-console.log(location.place_id)
-const googleMapsUrl = `https://www.google.com/maps/place/?q=place_id:${location.place_id}`
+    useEffect(() => setPhotoRef(), [])
+    let description = location.result.name
+    if (location.result.editorial_summary) {
+        description = location.result.editorial_summary.overview;
+    }
+    console.log("PLACE ID:")
+    console.log(location.place_id)
+    const googleMapsUrl = `https://www.google.com/maps/place/?q=place_id:${location.place_id}`
 
-    
-return (
-    <Card style={{ width: 500, height: 400 }}>
-      <CardActionArea component="a" href={googleMapsUrl} target="_blank">
-        <CardMedia
-          component="img"
-          alt={location.result.name}
-          height="170"
-          image={photo}
-          title={location.result.name}
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {location.result.name}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {description}
-          </Typography>
-          <Box display="flex" alignItems="center" mt={2}>
-            <LocationOnIcon />
-            <Typography variant="body2" color="text.secondary" ml={1}>
-              {'address'}
-            </Typography>
-          </Box>
-          <Box display="flex" alignItems="center" mt={2}>
-            <Rating
-              name="location-rating"
-              value={location.result.rating}
-              precision={0.5}
-              readOnly
-            />
-            <Typography variant="body2" color="text.secondary" ml={1}>
-              {location.result.rating}
-            </Typography>
-          </Box>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-  );
+
+    return (
+        <Card style={{ width: 500, height: 400 }}>
+            <CardActionArea component="a" href={googleMapsUrl} target="_blank">
+                <CardMedia
+                    component="img"
+                    alt={location.result.name}
+                    height="170"
+                    image={photo}
+                    title={location.result.name}
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        {location.result.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {description}
+                    </Typography>
+                    
+                    <Box display="flex" alignItems="center" mt={2}>
+                        <Rating
+                            name="location-rating"
+                            value={location.result.rating}
+                            precision={0.5}
+                            readOnly
+                        />
+                        <Typography variant="body2" color="text.secondary" ml={1}>
+                            {location.result.rating}
+                        </Typography>
+                    </Box>
+                </CardContent>
+            </CardActionArea>
+        </Card>
+    );
 
 };
 

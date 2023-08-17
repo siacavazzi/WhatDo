@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import Main from './Main';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import keys from "./apiKey";
-import Engine from "./Engine"
+import { ProfilePage } from './ProfilePage';
+import CreateProfile from "./CreateProfile"
+import { getProfileLoader } from './loaders';
+
 import {
   createBrowserRouter,
   RouterProvider,
@@ -13,25 +16,28 @@ import {
 } from "react-router-dom";
 
 
-const lat = 40.741895;
-const lon = -73.989308;
-
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      <App lat={lat} lon={lon}/>
-    ),
+    element: <App/>,
+    loader: getProfileLoader,
+    children: [
+      {
+        index: true,
+        element: <Main/>,
+      },
+      {
+        path: "profile",
+        element: <ProfilePage/>
+      },
+      {
+        path: "new-profile",
+        element: <CreateProfile/>
+      }
+    ]
   },
-  {
-    path: "about",
-    element: (
-      <div>
-        <h1>HIIIII!</h1>
-      </div>
-    ),
-  },
-]);
+])
+  
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

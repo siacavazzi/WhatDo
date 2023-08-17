@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "profile": {
+        "name": "Sam",
+        "dietary_restrictions": "none but I don't really like seafood",
+        "food_preferences": "middle eastern, asian, pizza, bagels, experimental food",
+        "drink_preferences": "craft beer, experimental cocktails",
+        "general_preferences": "aerospace, museums, hiking, abandoned places, photography, games, unique activities"
+      },
+      "id": 1
+    },
+    {
+      "profile": {
+        "name": "Lily (fake profile)",
+        "dietary_restrictions": "Gluten-free and pescatarian",
+        "food_preferences": "Prefers seafood dishes like shrimp scampi, grilled salmon, and crab cakes. Loves fresh fruits, especially berries, and vegetables like bell peppers and spinach. Enjoys salads with vinaigrette dressing.",
+        "drink_preferences": "Green tea, sparkling water, and pomegranate juice. Occasionally enjoys white wine with seafood dishes.",
+        "general_preferences": "Enjoys yoga, swimming, and stand-up paddleboarding. Often takes nature hikes and enjoys weekend getaways to coastal towns."
+      },
+      "id": 2
+    }
+  ]
+}

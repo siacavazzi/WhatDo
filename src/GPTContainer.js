@@ -1,11 +1,11 @@
 import { Configuration, OpenAIApi } from "openai";
 import keys from "./apiKey.js"
-import * as fxs from "./GPTFunctions.js";
 
 
 
 
 async function GPTResponse(messages, temperature=0.2) {
+    try {
     const config = new Configuration({
         apiKey:keys["gpt"]})
     //console.log(messages)
@@ -77,5 +77,9 @@ async function GPTResponse(messages, temperature=0.2) {
     // }
 
     return response.data.choices[0].message;
+} catch(e) {
+    console.log(e);
+    return "";
+}
 }
 export default GPTResponse;
