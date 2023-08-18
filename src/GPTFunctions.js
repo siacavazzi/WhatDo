@@ -61,7 +61,13 @@ export function randomSplice(arr, length) {
     return newArr;
 }
 //////////////////////////// GOOGLE QUERY CODE ///////////////////////////////////
-export async function queryLocations(query, lat, lon, radius) {
+export async function queryLocations(query, lat, lon, radius ,nearbySearch) {
+    let rankCrit;
+    if(nearbySearch) {
+        rankCrit = "rankby=distance"
+    } else {
+        rankCrit = "radius=4000"
+    }
     const OPTIONS = {
         method: "GET",
         headers: {
@@ -71,7 +77,7 @@ export async function queryLocations(query, lat, lon, radius) {
     }
 
 
-    const req = proxyUrl + `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&location=${lat} ${lon}&rankby=distance&openNow&reviews&key=${keys["google"]}`;
+    const req = proxyUrl + `https://maps.googleapis.com/maps/api/place/textsearch/json?query=${query}&location=${lat} ${lon}&${rankCrit}&openNow&reviews&key=${keys["google"]}`;
 
     try {
         let response = await fetch(req, OPTIONS);
@@ -136,6 +142,9 @@ export async function getPlaces(places, finalResult = false) {
         }
     }
     //console.log(places)
+    if(places.length > 5) {
+        places = places.slice(0, 5);
+    }
 
     for (let j = 0; j < places.length; j++) {
         let place = places[j];

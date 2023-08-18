@@ -28,6 +28,7 @@ function Main() {
     const [numResults, setNumResults] = useState(6)
     const [loadingState, setLoadingState] = useState("");
     const context = useContext(ProfileContext);
+    const [nearbySearch, setNearbySearch] = useState(true);
     const profile = context.profile
     let preferences;
     let food_preferences;
@@ -51,7 +52,7 @@ function Main() {
         
         setAppState("loading")
         console.log(selection)
-        const output = await runEngine(setLoadingState ,selection , lat , lon , radius , numResults, food_preferences, drink_preferences, dietary_restrictions, general_preferences)
+        const output = await runEngine(setLoadingState ,selection , lat , lon , radius , numResults, food_preferences, drink_preferences, dietary_restrictions, general_preferences , nearbySearch)
         // vv problem child
         displayLocations(output)
     }
@@ -108,7 +109,7 @@ function Main() {
         
         <div>
         <Map pins={pins} lat={lat} lon={lon} radius={radius} height={"70vh"}/>
-        {loggedIn ? <Selector makeSelection={makeSelection} radius={radius} setRadius={setRadius} numResults={numResults} setNumResults={setNumResults}/> :<h1>Please Select or Create a Profile to Continue</h1>}
+        {loggedIn ? <Selector makeSelection={makeSelection} radius={radius} setRadius={setRadius} numResults={numResults} setNumResults={setNumResults} nearbySearch={nearbySearch} setNearbySearch={setNearbySearch}/> :<h1>Please Select or Create a Profile to Continue</h1>}
         </div>
         
     )

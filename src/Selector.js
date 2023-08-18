@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Button, ButtonGroup, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
+import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
 
 const StyledButtonGroup = styled(ButtonGroup)`
   & .MuiButton-root {
@@ -36,14 +37,30 @@ const SettingsBox = styled(Box)({
     padding: '16px',
   });
 
-export default function Selector({ makeSelection , radius , setRadius,  numResults , setNumResults}) {
+export default function Selector({ makeSelection , radius , setRadius,  numResults , setNumResults , setNearbySearch , nearbySearch}) {
     const [displayCustom, setDisplayCustom] = useState(false);
     const [formInput, setFormInput] = useState("")
-    //const [radius, setRadius] = useState();
+    
     //const [numResults, setNumResults] = useState()
     if(!displayCustom) {
     return (
         <Box display="flex" justifyContent="flex-start" flexDirection="row" alignItems="center" gap={2} p={2}>
+            <SettingsBox>
+            <FormControl variant="outlined" style={{ width: '200px', height: '50px' }}>
+                        <InputLabel id="demo-simple-select-label">Search Type</InputLabel>
+                        <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            label="Choose Option"
+                            value={nearbySearch}
+                            onChange={((e) => setNearbySearch(e.target.value))}
+                        >
+                                <MenuItem value={true}>Nearby Search</MenuItem>
+                                <MenuItem value={false}>Detailed Search</MenuItem>
+                            
+                        </Select>
+                    </FormControl>
+                    </SettingsBox>
         
         <Box flexGrow={1} display="flex" justifyContent="center">
           <StyledButtonGroup size="large" aria-label="large button group">
@@ -52,7 +69,10 @@ export default function Selector({ makeSelection , radius , setRadius,  numResul
             <ActivitiesButton onClick={() => makeSelection("activities")}>Activities 🎲</ActivitiesButton>
             <CustomButton onClick={() => setDisplayCustom(true)}>Custom 😵‍💫</CustomButton>
           </StyledButtonGroup>
+
+         
         </Box>
+        
         </Box>
     );
     } else {

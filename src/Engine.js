@@ -11,7 +11,7 @@ let numSearches;
 
 
 
-async function runEngine(setLoadingState, selection, lat, lon, radius, numResults, food_preferences, drink_preferences, dietaryRestrictions, preferences) {
+async function runEngine(setLoadingState, selection, lat, lon, radius, numResults, food_preferences, drink_preferences, dietaryRestrictions, preferences, nearbySearch) {
   numSearches = numResults;
   setLoadingState("Step 1/5: Getting Weather and Time Recommendation... ⛈️")
   console.log(selection)
@@ -68,7 +68,7 @@ async function runEngine(setLoadingState, selection, lat, lon, radius, numResult
 
     const gptInput = {
       "role": "system",
-      "content": `Choose ${numSearches} diverse ${searchType} appropriate for a user with the following ${conditionalStatement}. \n Prioritize ${searchType} with the highest ratings and the most diversity. Try not to suggest similar locations. \n Locations: \n ${formattedLocations} \n
+      "content": `Choose ${numSearches} diverse ${searchType} appropriate for a user with the following ${conditionalStatement}. \n Prioritize ${searchType} with the highest ratings. Try not to suggest similar locations. Do not suggest 2 of the same locations. \n Locations: \n ${formattedLocations} \n
       Remember to choose ${numSearches} locations and respond with a comma seperated list of the chosen location codes and no other text. Do not modify the codes in any way.`
     };
     //console.log(formattedLocations);
@@ -124,7 +124,7 @@ async function runEngine(setLoadingState, selection, lat, lon, radius, numResult
       for (let search of searches) {
         console.log(search);
 
-        responses.push(fxs.queryLocations(search, lat, lon, radius));
+        responses.push(fxs.queryLocations(search, lat, lon, radius , nearbySearch));
       }
       console.log("ALL RESPONSES:::")
       // call next fx
@@ -172,10 +172,14 @@ async function runEngine(setLoadingState, selection, lat, lon, radius, numResult
     try {
       let conditionalDirective = ""
       let userContext = ""
+
+      
+
       switch (selection) {
         case "restaurants":
           conditionalDirective = `Create a comma separated list of ${numSearches} search strings for places to get ${getMeal()}. Do not search for takeout or delivery. Do not overly rely on user likes. Do not include location. Only return a comma seperated list of places to get ${getMeal()} and no other text. Please remember to keep the list comma seperated.`
           userContext = `Food preferences: ${food_preferences}`;
+          //userContext = ""
           break;
         case "bars":
           conditionalDirective = `Create a comma separated list of ${numSearches} search strings for bars and nightlife activities. Do not suggest restaurants and do not overly rely on user likes. Please remember to keep the list comma seperated.`
@@ -206,6 +210,7 @@ async function runEngine(setLoadingState, selection, lat, lon, radius, numResult
       };
       console.log(gptInput)
       const response = await GPTResponse(gptInput, 0.5);
+      console.log(response)
       return response.content
     } catch (error) {
       console.error("Error fetching data:", error);
