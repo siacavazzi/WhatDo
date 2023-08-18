@@ -1,3 +1,5 @@
+### WhatDo: your AI location recomendation assistant
+WhatDo recommends locations such as restaurants, bars or activities based on user preferences, current weather and time. WhatDo was made as part of phase 2 of my software engineering bootcamp and makes heavy use of outside APIs and react.js.
 
 ### How to start.
 
